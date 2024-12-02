@@ -1,0 +1,29 @@
+---
+title: "useful_commands"
+author: "Jaime Abraham Castro-Mondragon"
+date: 'Last update: `r Sys.Date()`'
+output: 
+  html_document:
+    theme: united
+    toc: yes
+    toc_float:
+      collapsed: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# `git`
+
+## `git tag`
+
+First `git commit` your changes before adding a new `tag` .
+
+```{bash pressure, echo=TRUE, eval=FALSE}
+git commit -m 'Your message' folder/your_updated_file.txt
+git push
+git tag v1.2.4
+git push --tags
+```
+
