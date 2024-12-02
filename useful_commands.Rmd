@@ -4,19 +4,31 @@ author: "Jaime Abraham Castro-Mondragon"
 date: 'Last update: `r Sys.Date()`'
 output: 
   html_document:
-    theme: united
+    theme: cosmo
     toc: yes
     toc_float:
-      collapsed: true
+      collapsed: false
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+
 ```
 
-# `git`
+## Introduction
 
-## `git tag`
+In this document you will find many commands from multiple languages, for instance `R`, `python`, `bash`, `Snakemake`, or other that I consider useful **but easy to forget**.
+
+So this is my personal library of commands, enjoy :)
+
+\newpage
+\newpage
+
+## `git`
+
+\newpage
+
+### `git tag`
 
 First `git commit` your changes before adding a new `tag` .
 
