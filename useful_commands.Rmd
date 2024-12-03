@@ -17,12 +17,26 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Introduction
 
-In this document you will find many commands from multiple languages, for instance `R`, `python`, `bash`, `Snakemake`, or other that I consider useful **but easy to forget**.
+In this document you will find many commands from multiple languages, for instance `R`, `python`, `bash`, `Snakemake`, or other. I use this commands frequently and I think they are very useful **but easy to forget**.
 
-So this is my personal library of commands, enjoy :)
+So, to avoid searching on the `bash history`, it is better to have a repository with all of them, enjoy.
 
 \newpage
 \newpage
+
+## `aws`
+
+\newpage
+
+### `log in`
+
+Run the command and open the browser to confirm
+
+```{bash aws_sso_login, echo=TRUE, eval=FALSE}
+aws sso login
+```
+
+
 
 ## `git`
 
@@ -32,7 +46,7 @@ So this is my personal library of commands, enjoy :)
 
 First `git commit` your changes before adding a new `tag` .
 
-```{bash pressure, echo=TRUE, eval=FALSE}
+```{bash git_tag, echo=TRUE, eval=FALSE}
 git commit -m 'Your message' folder/your_updated_file.txt
 git push
 git tag v1.2.4
