@@ -1504,7 +1504,7 @@ font-size: 0.95em;
 
 <h1 class="title toc-ignore">useful_commands</h1>
 <h4 class="author">Jaime Abraham Castro-Mondragon</h4>
-<h4 class="date">Last update: 2024-12-03</h4>
+<h4 class="date">Last update: 2024-12-04</h4>
 
 </div>
 
@@ -1518,16 +1518,52 @@ think they are very useful <strong>but easy to forget</strong>.</p>
 <p>So, to avoid searching on the <code>bash history</code>, it is better
 to have a repository with all of them, enjoy.</p>
 </div>
-<div id="aws" class="section level2">
-<h2><code>aws</code></h2>
+<div id="aws" class="section level1">
+<h1><code>aws</code></h1>
 <div id="log-in" class="section level3">
 <h3><code>log in</code></h3>
 <p>Run the command and open the browser to confirm</p>
 <pre class="bash"><code>aws sso login</code></pre>
 </div>
 </div>
-<div id="git" class="section level2">
-<h2><code>git</code></h2>
+<div id="git" class="section level1">
+<h1><code>git</code></h1>
+<div id="create-a-new-branch-from-a-previous-commit" class="section level3">
+<h3>Create a new branch from a previous <code>commit</code></h3>
+<p>Use <code>git log</code> to get the commit hash,
+<code>git branch</code> to create a new branch, and
+<code>git switch</code> to modify the new branch.</p>
+<p>Don’t forget to double check the branch you are working with using
+<code>git status</code></p>
+<pre class="bash"><code>git log
+git branch new_branch_name commit_hash
+git switch new_branch_name</code></pre>
+</div>
+<div id="merge-a-branch-into-main" class="section level3">
+<h3>Merge a <code>branch</code> into <code>main</code></h3>
+<p>Don’t forget to double check the branch you are working with using
+<code>git status</code> and list the branches with
+<code>git branch</code></p>
+<pre class="bash"><code>
+# Go to the branch
+git checkout branch_to_merge
+
+# FETCH_HEAD
+git pull origin main
+
+# go to main branch and merge
+git checkout main
+git merge branch_to_merge
+
+# If needed add the files with differences
+git add [resolved_files]
+
+# No -m 
+git commit
+
+# Push merged branch to main
+git push origin main</code></pre>
+</div>
 <div id="git-tag" class="section level3">
 <h3><code>git tag</code></h3>
 <p>First <code>git commit</code> your changes before adding a new
@@ -1538,8 +1574,8 @@ git tag v1.2.4
 git push --tags</code></pre>
 </div>
 </div>
-<div id="python" class="section level2">
-<h2><code>python</code></h2>
+<div id="python" class="section level1">
+<h1><code>python</code></h1>
 <div id="module-version" class="section level3">
 <h3>module version</h3>
 <p>We can use <code>pip</code> from the command line .</p>

@@ -23,7 +23,7 @@ So, to avoid searching on the `bash history`, it is better to have a repository 
 
 
 
-## `aws`
+# `aws`
 
 ### `log in`
 
@@ -35,7 +35,48 @@ aws sso login
 
 
 
-## `git`
+# `git`
+
+### Create a new branch from a previous `commit`
+
+Use `git log` to get the commit hash, `git branch` to create a new branch, and `git switch` to modify the new branch.
+
+Don't forget to double check the branch you are working with using `git status` 
+
+```{bash git_branch_from_commit, echo=TRUE, eval=FALSE}
+git log
+git branch new_branch_name commit_hash
+git switch new_branch_name
+```
+
+
+### Merge a `branch` into `main`
+
+Don't forget to double check the branch you are working with using `git status`  and list the branches with `git branch`
+
+```{bash merge_branch_to_main, echo=TRUE, eval=FALSE}
+
+# Go to the branch
+git checkout branch_to_merge
+
+# FETCH_HEAD
+git pull origin main
+
+# go to main branch and merge
+git checkout main
+git merge branch_to_merge
+
+# If needed add the files with differences
+git add [resolved_files]
+
+# No -m 
+git commit
+
+# Push merged branch to main
+git push origin main
+```
+
+
 
 ### `git tag`
 
@@ -50,7 +91,7 @@ git push --tags
 
 
 
-## `python`
+# `python`
 
 ### module version
 
