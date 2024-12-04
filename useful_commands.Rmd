@@ -21,12 +21,9 @@ In this document you will find many commands from multiple languages, for instan
 
 So, to avoid searching on the `bash history`, it is better to have a repository with all of them, enjoy.
 
-\newpage
-\newpage
+
 
 ## `aws`
-
-\newpage
 
 ### `log in`
 
@@ -40,8 +37,6 @@ aws sso login
 
 ## `git`
 
-\newpage
-
 ### `git tag`
 
 First `git commit` your changes before adding a new `tag` .
@@ -52,4 +47,35 @@ git push
 git tag v1.2.4
 git push --tags
 ```
+
+
+
+## `python`
+
+### module version
+
+We can use `pip` from the command line .
+
+```{bash pip_show, echo=TRUE, eval=FALSE}
+pip show module_name
+```
+
+
+### `poetry` basics
+
+Add, update or remove modules .
+
+```{bash poetry_basics, echo=TRUE, eval=FALSE}
+
+poetry update module
+
+# Add a module or a specific version or the latest version
+poetry add python
+poetry add python=3.8
+poetry add python@latest
+
+# Remove a module
+poetry remove python
+```
+
 

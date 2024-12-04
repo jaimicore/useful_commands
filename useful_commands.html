@@ -1520,7 +1520,6 @@ to have a repository with all of them, enjoy.</p>
 </div>
 <div id="aws" class="section level2">
 <h2><code>aws</code></h2>
-<div style="page-break-after: always;"></div>
 <div id="log-in" class="section level3">
 <h3><code>log in</code></h3>
 <p>Run the command and open the browser to confirm</p>
@@ -1529,7 +1528,6 @@ to have a repository with all of them, enjoy.</p>
 </div>
 <div id="git" class="section level2">
 <h2><code>git</code></h2>
-<div style="page-break-after: always;"></div>
 <div id="git-tag" class="section level3">
 <h3><code>git tag</code></h3>
 <p>First <code>git commit</code> your changes before adding a new
@@ -1538,6 +1536,28 @@ to have a repository with all of them, enjoy.</p>
 git push
 git tag v1.2.4
 git push --tags</code></pre>
+</div>
+</div>
+<div id="python" class="section level2">
+<h2><code>python</code></h2>
+<div id="module-version" class="section level3">
+<h3>module version</h3>
+<p>We can use <code>pip</code> from the command line .</p>
+<pre class="bash"><code>pip show module_name</code></pre>
+</div>
+<div id="poetry-basics" class="section level3">
+<h3><code>poetry</code> basics</h3>
+<p>Add, update or remove modules .</p>
+<pre class="bash"><code>
+poetry update module
+
+# Add a module or a specific version or the latest version
+poetry add python
+poetry add python=3.8
+poetry add python@latest
+
+# Remove a module
+poetry remove python</code></pre>
 </div>
 </div>
 
