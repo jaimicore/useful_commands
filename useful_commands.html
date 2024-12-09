@@ -1504,7 +1504,7 @@ font-size: 0.95em;
 
 <h1 class="title toc-ignore">useful_commands</h1>
 <h4 class="author">Jaime Abraham Castro-Mondragon</h4>
-<h4 class="date">Last update: 2024-12-04</h4>
+<h4 class="date">Last update: 2024-12-09</h4>
 
 </div>
 
@@ -1594,6 +1594,20 @@ poetry add python@latest
 
 # Remove a module
 poetry remove python</code></pre>
+</div>
+</div>
+<div id="utilities" class="section level1">
+<h1>Utilities</h1>
+<div id="convert-pdf-to-high-resolution-images-using-convert" class="section level3">
+<h3>Convert PDF to high resolution images using
+<code>convert</code></h3>
+<p>Use this when you have a PDF file and want to get a picture from it,
+avoiding to take a screenshot with low resolution.</p>
+<pre class="bash"><code>
+# Install imagemagick first
+sudo apt-get install imagemagick
+
+convert -density 300 -trim Input_PDF.pdf -quality 100 Output_Picture.jpg</code></pre>
 </div>
 </div>
 

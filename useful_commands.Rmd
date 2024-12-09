@@ -34,7 +34,6 @@ aws sso login
 ```
 
 
-
 # `git`
 
 ### Create a new branch from a previous `commit`
@@ -120,3 +119,16 @@ poetry remove python
 ```
 
 
+# Utilities
+
+### Convert PDF to high resolution images using `convert`
+
+Use this when you have a PDF file and want to get a picture from it, avoiding to take a screenshot with low resolution.
+
+```{bash convert_pdf2image, echo=TRUE, eval=FALSE}
+
+# Install imagemagick first
+sudo apt-get install imagemagick
+
+convert -density 300 -trim Input_PDF.pdf -quality 100 Output_Picture.jpg
+```
