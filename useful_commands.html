@@ -1504,7 +1504,7 @@ font-size: 0.95em;
 
 <h1 class="title toc-ignore">useful_commands</h1>
 <h4 class="author">Jaime Abraham Castro-Mondragon</h4>
-<h4 class="date">Last update: 2024-12-09</h4>
+<h4 class="date">Last update: 2024-12-13</h4>
 
 </div>
 
@@ -1594,6 +1594,48 @@ poetry add python@latest
 
 # Remove a module
 poetry remove python</code></pre>
+</div>
+</div>
+<div id="r" class="section level1">
+<h1><code>R</code></h1>
+<div id="generate-a-color-palette-with-n-colors-using-rcartocolor." class="section level3">
+<h3>Generate a color palette with <code>N</code> colors using
+<code>rcartocolor</code>.</h3>
+<p>See all the available palettes <a href="https://carto.com/carto-colors/">here</a>.</p>
+<pre class="r"><code>library(rcartocolor)
+
+#&#39; @description 
+#&#39; Create a color palette from rcartocolor with N colors.
+#&#39; Users can specify the number of seeds colors (default = 10)
+#&#39;
+#&#39; @param N An integer
+#&#39; @param rcc.palette A string.
+#&#39; @param seed.colors An integer
+#&#39; @return A vector with N Hex color codes
+#&#39; @examples
+#&#39; generate.color.palette(10)
+generate.color.palette &lt;- function(N           = 10,
+                                   rcc.palette = &quot;SunsetDark&quot;,
+                                   seed.colors = 10) {
+  
+  ## Cluster colors
+  nb.seed.colors &lt;- ifelse(N &lt; seed.colors,
+                           yes = N,
+                           no  = seed.colors)
+  
+  ## Generate a carto palette and expand it to the number of clusters
+  carto.pal.classes &lt;- carto_pal(nb.seed.colors, rcc.palette)
+  class.colors      &lt;- colorRampPalette(carto.pal.classes, space = &quot;Lab&quot;)(N)
+  
+  return(class.colors)
+}
+
+# Examples
+generate.color.palette(5)</code></pre>
+<pre><code>## [1] &quot;#FCDE9B&quot; &quot;#F48570&quot; &quot;#E34E6E&quot; &quot;#D72C7B&quot; &quot;#7B1D6E&quot;</code></pre>
+<pre class="r"><code>generate.color.palette(10)</code></pre>
+<pre><code>##  [1] &quot;#FCDE9B&quot; &quot;#F9B781&quot; &quot;#F69372&quot; &quot;#F0736D&quot; &quot;#E65A6D&quot; &quot;#DF4671&quot; &quot;#DC3977&quot;
+##  [8] &quot;#C42B79&quot; &quot;#A42176&quot; &quot;#7B1D6E&quot;</code></pre>
 </div>
 </div>
 <div id="utilities" class="section level1">

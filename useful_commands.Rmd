@@ -119,6 +119,48 @@ poetry remove python
 ```
 
 
+# `R`
+
+### Generate a color palette with `N` colors using `rcartocolor`.
+
+See all the available palettes [here](https://carto.com/carto-colors/).
+
+
+```{r palette, echo=TRUE, eval=TRUE}
+
+library(rcartocolor)
+
+#' @description 
+#' Create a color palette from rcartocolor with N colors.
+#' Users can specify the number of seeds colors (default = 10)
+#'
+#' @param N An integer
+#' @param rcc.palette A string.
+#' @param seed.colors An integer
+#' @return A vector with N Hex color codes
+#' @examples
+#' generate.color.palette(10)
+generate.color.palette <- function(N           = 10,
+                                   rcc.palette = "SunsetDark",
+                                   seed.colors = 10) {
+  
+  ## Cluster colors
+  nb.seed.colors <- ifelse(N < seed.colors,
+                           yes = N,
+                           no  = seed.colors)
+  
+  ## Generate a carto palette and expand it to the number of clusters
+  carto.pal.classes <- carto_pal(nb.seed.colors, rcc.palette)
+  class.colors      <- colorRampPalette(carto.pal.classes, space = "Lab")(N)
+  
+  return(class.colors)
+}
+
+# Examples
+generate.color.palette(5)
+generate.color.palette(10)
+```
+
 # Utilities
 
 ### Convert PDF to high resolution images using `convert`
