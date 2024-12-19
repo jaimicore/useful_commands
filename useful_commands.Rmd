@@ -226,6 +226,43 @@ generate.color.palette(10)
 ```
 
 
+$$\\[0.05in]$$
+
+### Generate a `renv.lock` file using `renv`
+
+This file is needed in `github actions` to manages dependencies and cache `R` packages.
+
+
+```{r renv_lock, echo=TRUE, eval=FALSE}
+
+library(renv)
+library(rcartocolor)
+
+# initialize a new project (with an empty R library)
+renv::init(bare = TRUE)
+
+# install digest 0.6.19
+renv::install("digest@0.6.19")
+
+# save library state to lockfile
+renv::snapshot()
+
+# remove digest from library
+renv::remove("digest")
+
+# check library status
+renv::status()
+
+# restore lockfile, thereby reinstalling digest 0.6.19
+renv::restore()
+
+
+#  Control dependencies : https://rstudio.github.io/renv/reference/snapshot.html
+renv::settings$snapshot.type("explicit")
+
+
+```
+
 $$\\[0.5in]$$
 
 

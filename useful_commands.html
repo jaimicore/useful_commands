@@ -1682,6 +1682,36 @@ generate.color.palette(5)</code></pre>
 <pre class="r"><code>generate.color.palette(10)</code></pre>
 <pre><code>##  [1] &quot;#FCDE9B&quot; &quot;#F9B781&quot; &quot;#F69372&quot; &quot;#F0736D&quot; &quot;#E65A6D&quot; &quot;#DF4671&quot; &quot;#DC3977&quot;
 ##  [8] &quot;#C42B79&quot; &quot;#A42176&quot; &quot;#7B1D6E&quot;</code></pre>
+<p><span class="math display">\[\\[0.05in]\]</span></p>
+</div>
+<div id="generate-a-renv.lock-file-using-renv" class="section level3">
+<h3>Generate a <code>renv.lock</code> file using <code>renv</code></h3>
+<p>This file is needed in <code>github actions</code> to manages
+dependencies and cache <code>R</code> packages.</p>
+<pre class="r"><code>library(renv)
+library(rcartocolor)
+
+# initialize a new project (with an empty R library)
+renv::init(bare = TRUE)
+
+# install digest 0.6.19
+renv::install(&quot;digest@0.6.19&quot;)
+
+# save library state to lockfile
+renv::snapshot()
+
+# remove digest from library
+renv::remove(&quot;digest&quot;)
+
+# check library status
+renv::status()
+
+# restore lockfile, thereby reinstalling digest 0.6.19
+renv::restore()
+
+
+#  Control dependencies : https://rstudio.github.io/renv/reference/snapshot.html
+renv::settings$snapshot.type(&quot;explicit&quot;)</code></pre>
 <p><span class="math display">\[\\[0.5in]\]</span></p>
 </div>
 </div>
