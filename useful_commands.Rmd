@@ -13,6 +13,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
+library(reticulate)
 ```
 
 ## Introduction
@@ -22,8 +23,12 @@ In this document you will find many commands from multiple languages, for instan
 So, to avoid searching on the `bash history`, it is better to have a repository with all of them, enjoy.
 
 
+$$\\[0.5in]$$
+
 
 # `aws`
+
+$$\\[0.05in]$$
 
 ### `log in`
 
@@ -34,8 +39,12 @@ aws sso login
 ```
 
 
+$$\\[0.5in]$$
+
+
 # `git`
 
+$$\\[0.05in]$$
 ### Create a new branch from a previous `commit`
 
 Use `git log` to get the commit hash, `git branch` to create a new branch, and `git switch` to modify the new branch.
@@ -48,7 +57,7 @@ git branch new_branch_name commit_hash
 git switch new_branch_name
 ```
 
-
+$$\\[0.05in]$$
 ### Merge a `branch` into `main`
 
 Don't forget to double check the branch you are working with using `git status`  and list the branches with `git branch`
@@ -76,6 +85,7 @@ git push origin main
 ```
 
 
+$$\\[0.05in]$$
 
 ### `git tag`
 
@@ -89,8 +99,12 @@ git push --tags
 ```
 
 
+$$\\[0.5in]$$
+
 
 # `python`
+
+$$\\[0.05in]$$
 
 ### module version
 
@@ -100,6 +114,8 @@ We can use `pip` from the command line .
 pip show module_name
 ```
 
+
+$$\\[0.05in]$$
 
 ### `poetry` basics
 
@@ -119,7 +135,55 @@ poetry remove python
 ```
 
 
+$$\\[0.05in]$$
+
+### Vectorize a function using `numpy`
+
+Use it to vectorize a function and avoid explicit iterations.
+
+```{python np_vectorize, echo=TRUE, eval=TRUE}
+import numpy as np
+
+# This function counts occurrences of a specific letter in a string
+def count_letter(input_string, letter, case_sensitive=True):
+    """
+    Counts the number of a specific letter in the input string, with an option for case sensitivity.
+    
+    Parameters:
+        input_string (str): The string to analyze.
+        letter (str): The letter to count.
+        case_sensitive (bool): If True, respects case. If False, ignores case.
+        
+    Returns:
+        int: The count of the specified letter in the string.
+    """
+    if not case_sensitive:
+        input_string = input_string.lower()
+        letter = letter.lower()
+    return input_string.count(letter)
+
+# Vectorize the function
+vectorized_count_letter = np.vectorize(count_letter)
+
+# Example usage
+example_strings = np.array(["Abracadabra", "Alpha", "array", "Artistic", "awesome"])
+
+# Call the vectorized function and count the occurrences
+As = vectorized_count_letter(example_strings,'A', case_sensitive = False)
+Bs = vectorized_count_letter(example_strings,'B', case_sensitive = False)
+
+print(f"Counts of As: {As}")
+print(f"Counts of Bs: {Bs}")
+```
+
+
+
+$$\\[0.5in]$$
+
+
 # `R`
+
+$$\\[0.05in]$$
 
 ### Generate a color palette with `N` colors using `rcartocolor`.
 
@@ -161,7 +225,13 @@ generate.color.palette(5)
 generate.color.palette(10)
 ```
 
+
+$$\\[0.5in]$$
+
+
 # Utilities
+
+$$\\[0.05in]$$
 
 ### Convert PDF to high resolution images using `convert`
 

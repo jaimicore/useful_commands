@@ -1504,7 +1504,7 @@ font-size: 0.95em;
 
 <h1 class="title toc-ignore">useful_commands</h1>
 <h4 class="author">Jaime Abraham Castro-Mondragon</h4>
-<h4 class="date">Last update: 2024-12-13</h4>
+<h4 class="date">Last update: 2024-12-19</h4>
 
 </div>
 
@@ -1517,19 +1517,22 @@ for instance <code>R</code>, <code>python</code>, <code>bash</code>,
 think they are very useful <strong>but easy to forget</strong>.</p>
 <p>So, to avoid searching on the <code>bash history</code>, it is better
 to have a repository with all of them, enjoy.</p>
+<p><span class="math display">\[\\[0.5in]\]</span></p>
 </div>
 <div id="aws" class="section level1">
 <h1><code>aws</code></h1>
+<p><span class="math display">\[\\[0.05in]\]</span></p>
 <div id="log-in" class="section level3">
 <h3><code>log in</code></h3>
 <p>Run the command and open the browser to confirm</p>
 <pre class="bash"><code>aws sso login</code></pre>
+<p><span class="math display">\[\\[0.5in]\]</span></p>
 </div>
 </div>
 <div id="git" class="section level1">
 <h1><code>git</code></h1>
-<div id="create-a-new-branch-from-a-previous-commit" class="section level3">
-<h3>Create a new branch from a previous <code>commit</code></h3>
+<p><span class="math display">\[\\[0.05in]\]</span> ### Create a new
+branch from a previous <code>commit</code></p>
 <p>Use <code>git log</code> to get the commit hash,
 <code>git branch</code> to create a new branch, and
 <code>git switch</code> to modify the new branch.</p>
@@ -1538,9 +1541,8 @@ to have a repository with all of them, enjoy.</p>
 <pre class="bash"><code>git log
 git branch new_branch_name commit_hash
 git switch new_branch_name</code></pre>
-</div>
-<div id="merge-a-branch-into-main" class="section level3">
-<h3>Merge a <code>branch</code> into <code>main</code></h3>
+<p><span class="math display">\[\\[0.05in]\]</span> ### Merge a
+<code>branch</code> into <code>main</code></p>
 <p>Don’t forget to double check the branch you are working with using
 <code>git status</code> and list the branches with
 <code>git branch</code></p>
@@ -1563,7 +1565,7 @@ git commit
 
 # Push merged branch to main
 git push origin main</code></pre>
-</div>
+<p><span class="math display">\[\\[0.05in]\]</span></p>
 <div id="git-tag" class="section level3">
 <h3><code>git tag</code></h3>
 <p>First <code>git commit</code> your changes before adding a new
@@ -1572,14 +1574,17 @@ git push origin main</code></pre>
 git push
 git tag v1.2.4
 git push --tags</code></pre>
+<p><span class="math display">\[\\[0.5in]\]</span></p>
 </div>
 </div>
 <div id="python" class="section level1">
 <h1><code>python</code></h1>
+<p><span class="math display">\[\\[0.05in]\]</span></p>
 <div id="module-version" class="section level3">
 <h3>module version</h3>
 <p>We can use <code>pip</code> from the command line .</p>
 <pre class="bash"><code>pip show module_name</code></pre>
+<p><span class="math display">\[\\[0.05in]\]</span></p>
 </div>
 <div id="poetry-basics" class="section level3">
 <h3><code>poetry</code> basics</h3>
@@ -1594,10 +1599,51 @@ poetry add python@latest
 
 # Remove a module
 poetry remove python</code></pre>
+<p><span class="math display">\[\\[0.05in]\]</span></p>
+</div>
+<div id="vectorize-a-function-using-numpy" class="section level3">
+<h3>Vectorize a function using <code>numpy</code></h3>
+<p>Use it to vectorize a function and avoid explicit iterations.</p>
+<pre class="python"><code>import numpy as np
+
+# This function counts occurrences of a specific letter in a string
+def count_letter(input_string, letter, case_sensitive=True):
+    &quot;&quot;&quot;
+    Counts the number of a specific letter in the input string, with an option for case sensitivity.
+    
+    Parameters:
+        input_string (str): The string to analyze.
+        letter (str): The letter to count.
+        case_sensitive (bool): If True, respects case. If False, ignores case.
+        
+    Returns:
+        int: The count of the specified letter in the string.
+    &quot;&quot;&quot;
+    if not case_sensitive:
+        input_string = input_string.lower()
+        letter = letter.lower()
+    return input_string.count(letter)
+
+# Vectorize the function
+vectorized_count_letter = np.vectorize(count_letter)
+
+# Example usage
+example_strings = np.array([&quot;Abracadabra&quot;, &quot;Alpha&quot;, &quot;array&quot;, &quot;Artistic&quot;, &quot;awesome&quot;])
+
+# Call the vectorized function and count the occurrences
+As = vectorized_count_letter(example_strings,&#39;A&#39;, case_sensitive = False)
+Bs = vectorized_count_letter(example_strings,&#39;B&#39;, case_sensitive = False)
+
+print(f&quot;Counts of As: {As}&quot;)</code></pre>
+<pre><code>## Counts of As: [5 2 2 1 1]</code></pre>
+<pre class="python"><code>print(f&quot;Counts of Bs: {Bs}&quot;)</code></pre>
+<pre><code>## Counts of Bs: [2 0 0 0 0]</code></pre>
+<p><span class="math display">\[\\[0.5in]\]</span></p>
 </div>
 </div>
 <div id="r" class="section level1">
 <h1><code>R</code></h1>
+<p><span class="math display">\[\\[0.05in]\]</span></p>
 <div id="generate-a-color-palette-with-n-colors-using-rcartocolor." class="section level3">
 <h3>Generate a color palette with <code>N</code> colors using
 <code>rcartocolor</code>.</h3>
@@ -1636,10 +1682,12 @@ generate.color.palette(5)</code></pre>
 <pre class="r"><code>generate.color.palette(10)</code></pre>
 <pre><code>##  [1] &quot;#FCDE9B&quot; &quot;#F9B781&quot; &quot;#F69372&quot; &quot;#F0736D&quot; &quot;#E65A6D&quot; &quot;#DF4671&quot; &quot;#DC3977&quot;
 ##  [8] &quot;#C42B79&quot; &quot;#A42176&quot; &quot;#7B1D6E&quot;</code></pre>
+<p><span class="math display">\[\\[0.5in]\]</span></p>
 </div>
 </div>
 <div id="utilities" class="section level1">
 <h1>Utilities</h1>
+<p><span class="math display">\[\\[0.05in]\]</span></p>
 <div id="convert-pdf-to-high-resolution-images-using-convert" class="section level3">
 <h3>Convert PDF to high resolution images using
 <code>convert</code></h3>
