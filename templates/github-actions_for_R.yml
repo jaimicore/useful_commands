@@ -1,0 +1,73 @@
+# NOTE: this is a template to run a github action using R.
+#       - It installs linux dependencies first, some R packages and cache them to avoid further reinstallation
+#       - It assumes you have a renv.lock file in the repository
+#       - Adapt the variables <LIKE_THIS> and the restof the code can stay as it is now
+name: <YOUR_ACTION_NAME>
+
+# Trigger the workflow when there is a push event
+on:
+  push:
+
+jobs:
+
+  <JOB_NAME>:
+  
+    runs-on: ubuntu-24.04
+    
+    steps:
+    
+    
+      # Check out the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      
+      # Install system dependencies required for R packages
+      # Adapt according to the user needs
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y g++ libcurl4-openssl-dev libssl-dev libxml2-dev libharfbuzz-dev libfontconfig1-dev libfribidi-dev
+    
+    
+      # Set up the R environment and R version
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: '4.4.0'
+
+
+      # Define custom renv cache directory
+      # Set renv cache path in environment variables
+      - name: Set RENV_PATHS_ROOT
+        run: echo "RENV_PATHS_ROOT=${{ runner.temp }}/renv" >> $GITHUB_ENV
+
+
+      # Cache R package dependencies using the GitHub caching action
+      - name: Cache R packages
+        uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}/renv
+          key: Linux-renv-${{ hashFiles('**/renv.lock') }}
+          restore-keys: |
+            Linux-renv-
+
+
+      # Install and restore R dependencies using renv
+      - name: Install renv and restore dependencies
+        run: |
+          Rscript -e "install.packages(c('renv'))"
+          Rscript -e "renv::restore()"
+
+
+      # Debug the repository structure (optional)
+      - name: Debug File Structure
+        run: ls -R
+
+
+      - name: <FINALLY_YOUR_COMMAND>
+        run: |
+          Rscript Your_R_Script.R     \
+          -i data/your_table.txt      \
+          -o results/parsed_table.txt
+
