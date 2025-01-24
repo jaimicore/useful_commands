@@ -35,6 +35,7 @@ $$\\[0.05in]$$
 Run the command and open the browser to confirm
 
 ```{bash aws_sso_login, echo=TRUE, eval=FALSE}
+aws configure sso
 aws sso login
 ```
 
@@ -259,13 +260,11 @@ renv::restore()
 
 #  Control dependencies : https://rstudio.github.io/renv/reference/snapshot.html
 renv::settings$snapshot.type("explicit")
-
-
 ```
 
 $$\\[0.5in]$$
 
-
+# Save the lock file
 # Utilities
 
 $$\\[0.05in]$$
