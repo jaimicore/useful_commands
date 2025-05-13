@@ -1504,7 +1504,7 @@ font-size: 0.95em;
 
 <h1 class="title toc-ignore">useful_commands</h1>
 <h4 class="author">Jaime Abraham Castro-Mondragon</h4>
-<h4 class="date">Last update: 2025-01-24</h4>
+<h4 class="date">Last update: 2025-05-13</h4>
 
 </div>
 
@@ -1532,8 +1532,9 @@ aws sso login</code></pre>
 </div>
 <div id="git" class="section level1">
 <h1><code>git</code></h1>
-<p><span class="math display">\[\\[0.05in]\]</span> ### Create a new
-branch from a previous <code>commit</code></p>
+<p><span class="math display">\[\\[0.05in]\]</span></p>
+<div id="create-a-new-branch-from-a-previous-commit" class="section level3">
+<h3>Create a new branch from a previous <code>commit</code></h3>
 <p>Use <code>git log</code> to get the commit hash,
 <code>git branch</code> to create a new branch, and
 <code>git switch</code> to modify the new branch.</p>
@@ -1542,8 +1543,10 @@ branch from a previous <code>commit</code></p>
 <pre class="bash"><code>git log
 git branch new_branch_name commit_hash
 git switch new_branch_name</code></pre>
-<p><span class="math display">\[\\[0.05in]\]</span> ### Merge a
-<code>branch</code> into <code>main</code></p>
+<p><span class="math display">\[\\[0.05in]\]</span></p>
+</div>
+<div id="merge-a-branch-into-main" class="section level3">
+<h3>Merge a <code>branch</code> into <code>main</code></h3>
 <p>Don’t forget to double check the branch you are working with using
 <code>git status</code> and list the branches with
 <code>git branch</code></p>
@@ -1567,6 +1570,7 @@ git commit
 # Push merged branch to main
 git push origin main</code></pre>
 <p><span class="math display">\[\\[0.05in]\]</span></p>
+</div>
 <div id="git-tag" class="section level3">
 <h3><code>git tag</code></h3>
 <p>First <code>git commit</code> your changes before adding a new
@@ -1575,6 +1579,18 @@ git push origin main</code></pre>
 git push
 git tag v1.2.4
 git push --tags</code></pre>
+<p><span class="math display">\[\\[0.5in]\]</span></p>
+</div>
+<div id="set-credentials-in-git" class="section level3">
+<h3>Set credentials in <code>git</code></h3>
+<p>Do this to stop <code>git</code> asking your user name each time you
+<code>push</code> changes in a repository.</p>
+<pre class="bash"><code>
+# Set your user name
+git config --global credential.https://github.com.username user_name
+
+# Then save your credentials
+git config --global credential.helper store</code></pre>
 <p><span class="math display">\[\\[0.5in]\]</span></p>
 </div>
 </div>

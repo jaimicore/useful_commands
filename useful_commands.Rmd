@@ -46,6 +46,7 @@ $$\\[0.5in]$$
 # `git`
 
 $$\\[0.05in]$$
+
 ### Create a new branch from a previous `commit`
 
 Use `git log` to get the commit hash, `git branch` to create a new branch, and `git switch` to modify the new branch.
@@ -59,6 +60,7 @@ git switch new_branch_name
 ```
 
 $$\\[0.05in]$$
+
 ### Merge a `branch` into `main`
 
 Don't forget to double check the branch you are working with using `git status`  and list the branches with `git branch`
@@ -97,6 +99,22 @@ git commit -m 'Your message' folder/your_updated_file.txt
 git push
 git tag v1.2.4
 git push --tags
+```
+
+
+$$\\[0.5in]$$
+
+### Set credentials in `git`
+
+Do this to stop `git` asking your user name each time you `push` changes in a repository.
+
+```{bash git_set_credentials, echo=TRUE, eval=FALSE}
+
+# Set your user name
+git config --global credential.https://github.com.username user_name
+
+# Then save your credentials
+git config --global credential.helper store
 ```
 
 
