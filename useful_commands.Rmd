@@ -8,6 +8,7 @@ output:
     toc: yes
     toc_float:
       collapsed: false
+      
 ---
 
 ```{r setup, include=FALSE}
@@ -119,7 +120,78 @@ git config --global credential.helper store
 
 
 $$\\[0.5in]$$
+### Examples of `git commit`
 
+These examples follow the [git commit style guidelines](https://gist.github.com/ericavonb/3c79e5035567c8ef3267)
+
+Summary:
+
+  - Must be present tense
+  - Written in the imperative
+  - First letter is not capitalized
+  - Does not end with a '.'
+
+
+Allowed Types:
+
+  - feat -> feature
+  - fix -> bug fix
+  - docs -> documentation
+  - style -> formatting, lint stuff
+  - refactor -> code restructure without changing exterrnal behavior
+  - test -> adding missing tests
+  - chore -> maintenance
+  - init -> initial commit
+  - rearrange -> files moved, added, deleted etc
+  - update -> update code (versions, library compatibility)
+
+
+```{bash git_commit_examples, echo=TRUE, eval=FALSE}
+
+# First commit (init)
+git commit -m 'init: First commit' your_file.txt
+
+# Bug fix (fix)
+git commit -m 'fix: Fixed bug when reading data in function()' your_file.txt
+
+# Documentation (docs)
+git commit -m 'docs: Added documentation for function()' your_file.txt
+git commit -m 'docs: Added comments regarding function()' your_file.txt
+
+# Features (feat)
+git commit -m 'feat: Added new method to do ... in function()' your_file.txt
+
+# Style (style)
+git commit -m 'style: corrected typo in a comment' your_file.txt
+git commit -m 'style: changed colors in heatmap' your_file.txt
+git commit -m 'style: linten code/function' your_file.txt
+git commit -m 'style: updated style in section ...' your_file.txt
+
+# Refactor (refactor)
+git commit -m 'refactor: function() refactored to be faster/memory efficient' your_file.txt
+
+# Test (test)
+git commit -m 'test: Added unit test for function()' your_file.txt
+
+# Rearrange (rearrange) : all related to file manipulation
+git commit -m 'rearrange: added .gitignore' 
+git commit -m 'rearrange: moved to subfolder_x' your_file.txt
+git commit -m 'rearrange: removed file' your_file.txt
+git commit -m 'rearrange: changed chmod' your_file.txt
+
+# Update (update)
+git commit -m 'update: new version' your_file.txt
+git commit -m 'update: updated function() to use dplyr 3.0' your_file.txt
+
+# Maintenance (chore)
+git commit -m 'chore: updated config file' your_file.txt
+git commit -m 'chore: removed non required dependencies' your_file.txt
+git commit -m 'chore: added dplyr as dependency' your_file.txt
+
+```
+
+
+$$\\[0.5in]$$
 
 # `python`
 
