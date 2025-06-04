@@ -1,0 +1,57 @@
+name: Create PDF and HTML document
+on:
+  push:
+
+jobs:
+  Knit_commands_doc:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libcurl4-openssl-dev libssl-dev libxml2-dev libharfbuzz-dev libfontconfig1-dev libfribidi-dev libfreetype6-dev libpng-dev libtiff5-dev libjpeg-dev pandoc texlive-latex-base texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra texlive-xetex lmodern texlive-science
+    
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          r-version: '4.4.0'
+
+      - name: Set RENV_PATHS_ROOT
+        run: echo "RENV_PATHS_ROOT=${{ runner.temp }}/renv" >> $GITHUB_ENV
+
+      - name: Cache R packages
+        uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}/renv
+          key: Linux-renv-${{ hashFiles('**/renv.lock') }}
+          restore-keys: |
+            Linux-renv-
+
+      - name: Install renv and restore dependencies
+        run: |
+          Rscript -e "install.packages(c('renv'))"
+          Rscript -e "renv::restore()"
+
+      - name: Debug File Structure
+        run: ls -R
+
+      - name: Knit Questions PDF
+        run: |
+          Rscript -e 'library(rmarkdown); rmarkdown::render("useful_commands.Rmd", "pdf_document", output_options = list(keep_tex = TRUE, latex_engine = "xelatex"))' || exit 1
+
+      - name: Show LaTeX file
+        run: |
+          cat useful_commands.tex
+
+      - name: Commit and Push Rendered PDF
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add useful_commands.pdf
+          git commit -m "style: Updated rendered PDF"
+          git push origin HEAD
