@@ -4,11 +4,13 @@ author: "Jaime Abraham Castro-Mondragon"
 date: 'Last update: `r Sys.Date()`'
 output: 
   html_document:
+    number_sections: true
     theme: cosmo
     toc: yes
+    toc_depth: 4
     toc_float:
-      collapsed: false
-      
+      collapsed: true
+    self_contained: true
 ---
 
 ```{r setup, include=FALSE}
@@ -17,21 +19,25 @@ knitr::opts_chunk$set(echo = TRUE)
 library(reticulate)
 ```
 
-## Introduction
+<br>
 
-In this document you will find many commands from multiple languages, for instance `R`, `python`, `bash`, `Snakemake`, or other. I use this commands frequently and I think they are very useful **but easy to forget**.
+# Introduction
 
-So, to avoid searching on the `bash history`, it is better to have a repository with all of them, enjoy.
+<br>
 
+In this document you will find many commands from multiple languages, for instance `R`, `python`, `bash`, `Snakemake`, or others. I use these commands frequently and I think they are useful **but easy to forget**.
 
-$$\\[0.5in]$$
+So, to avoid searching on the `bash history` or in google, it is better to have a repository with all of them, enjoy.
 
+<br>
 
 # `aws`
 
-$$\\[0.05in]$$
+<br>
 
-### `log in`
+## `log in`
+
+<br>
 
 Run the command and open the browser to confirm
 
@@ -40,15 +46,15 @@ aws configure sso
 aws sso login
 ```
 
-
-$$\\[0.5in]$$
-
+<br>
 
 # `git`
 
-$$\\[0.05in]$$
+<br>
 
-### Create a new branch from a previous `commit`
+## Create a new branch from a previous `commit`
+
+<br>
 
 Use `git log` to get the commit hash, `git branch` to create a new branch, and `git switch` to modify the new branch.
 
@@ -60,9 +66,11 @@ git branch new_branch_name commit_hash
 git switch new_branch_name
 ```
 
-$$\\[0.05in]$$
+<br>
 
-### Merge a `branch` into `main`
+## Merge a `branch` into `main`
+
+<br>
 
 Don't forget to double check the branch you are working with using `git status`  and list the branches with `git branch`
 
@@ -88,10 +96,11 @@ git commit
 git push origin main
 ```
 
+<br>
 
-$$\\[0.05in]$$
+## `git tag`
 
-### `git tag`
+<br>
 
 First `git commit` your changes before adding a new `tag` .
 
@@ -102,10 +111,11 @@ git tag v1.2.4
 git push --tags
 ```
 
+<br>
 
-$$\\[0.5in]$$
+## Set credentials in `git`
 
-### Set credentials in `git`
+<br>
 
 Do this to stop `git` asking your user name each time you `push` changes in a repository.
 
@@ -118,9 +128,11 @@ git config --global credential.https://github.com.username user_name
 git config --global credential.helper store
 ```
 
+<br>
 
-$$\\[0.5in]$$
-### Examples of `git commit`
+## Examples of `git commit`
+
+<br>
 
 These examples follow the [git commit style guidelines](https://gist.github.com/ericavonb/3c79e5035567c8ef3267)
 
@@ -190,14 +202,15 @@ git commit -m 'chore: added dplyr as dependency' your_file.txt
 
 ```
 
-
-$$\\[0.5in]$$
+<br>
 
 # `python`
 
-$$\\[0.05in]$$
+<br>
 
-### module version
+## module version
+
+<br>
 
 We can use `pip` from the command line .
 
@@ -205,10 +218,11 @@ We can use `pip` from the command line .
 pip show module_name
 ```
 
+<br>
 
-$$\\[0.05in]$$
+## `poetry` basics
 
-### `poetry` basics
+<br>
 
 Add, update or remove modules .
 
@@ -225,10 +239,11 @@ poetry add python@latest
 poetry remove python
 ```
 
+<br>
 
-$$\\[0.05in]$$
+## Vectorize a function using `numpy`
 
-### Vectorize a function using `numpy`
+<br>
 
 Use it to vectorize a function and avoid explicit iterations.
 
@@ -267,16 +282,15 @@ print(f"Counts of As: {As}")
 print(f"Counts of Bs: {Bs}")
 ```
 
-
-
-$$\\[0.5in]$$
-
+<br>
 
 # `R`
 
-$$\\[0.05in]$$
+<br>
 
-### Generate a color palette with `N` colors using `rcartocolor`.
+## Generate a color palette with `N` colors using `rcartocolor`.
+
+<br>
 
 See all the available palettes [here](https://carto.com/carto-colors/).
 
@@ -316,10 +330,11 @@ generate.color.palette(5)
 generate.color.palette(10)
 ```
 
+<br>
 
-$$\\[0.05in]$$
+## Generate a `renv.lock` file using `renv`
 
-### Generate a `renv.lock` file using `renv`
+<br>
 
 This file is needed in `github actions` to manages dependencies and cache `R` packages.
 
@@ -352,14 +367,11 @@ renv::restore()
 renv::settings$snapshot.type("explicit")
 ```
 
-$$\\[0.5in]$$
+<br>
 
-# Save the lock file
-# Utilities
+## Convert PDF to high resolution images using `convert`
 
-$$\\[0.05in]$$
-
-### Convert PDF to high resolution images using `convert`
+<br>
 
 Use this when you have a PDF file and want to get a picture from it, avoiding to take a screenshot with low resolution.
 
@@ -370,3 +382,5 @@ sudo apt-get install imagemagick
 
 convert -density 300 -trim Input_PDF.pdf -quality 100 Output_Picture.jpg
 ```
+
+<br>
