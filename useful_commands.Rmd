@@ -247,7 +247,7 @@ poetry remove python
 
 Use it to vectorize a function and avoid explicit iterations.
 
-```{python np_vectorize, echo=TRUE, eval=TRUE}
+```{python np_vectorize, echo=TRUE, eval=FALSE}
 import numpy as np
 
 # This function counts occurrences of a specific letter in a string
@@ -278,8 +278,8 @@ example_strings = np.array(["Abracadabra", "Alpha", "array", "Artistic", "awesom
 As = vectorized_count_letter(example_strings,'A', case_sensitive = False)
 Bs = vectorized_count_letter(example_strings,'B', case_sensitive = False)
 
-print(f"Counts of As: {As}")
-print(f"Counts of Bs: {Bs}")
+#print(f"Counts of As: {As}")
+#print(f"Counts of Bs: {Bs}")
 ```
 
 <br>
