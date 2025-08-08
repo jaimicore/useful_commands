@@ -369,6 +369,10 @@ renv::settings$snapshot.type("explicit")
 
 <br>
 
+# Bash
+
+<br>
+
 ## Convert PDF to high resolution images using `convert`
 
 <br>
@@ -384,3 +388,52 @@ convert -density 300 -trim Input_PDF.pdf -quality 100 Output_Picture.jpg
 ```
 
 <br>
+
+# Apptainer (Singularity)
+
+<br>
+
+## Create a `.sif` file
+
+<br>
+
+Use this command to create an *image* (`.sif`) file that can be used to call the containerized software.
+In this example we are creating a `.sif` file that calls a python script.
+
+<br>
+
+Requirements:
+  
+  - Singularity definition file: `.def` file.
+  - `.toml` file with the required python modules
+
+<br>
+
+```{bash create_sif, echo=TRUE, eval=FALSE}
+sudo apptainer build         \
+  Image_to_Create.sif        \
+  Singularity_definition.def
+```
+
+<br>
+
+## Run a `.sif` file
+
+<br>
+
+Once the `.sif` file was successfully created, it can be moved to any other folder
+or machine to call the containerized software.
+
+  - The first line in the following chunk, `singularity run` is 
+the command to call any `.sif` file.
+  - `-B` : use this argument to mount a file 
+  - Arguments: `-o` is an argument expected by the containerized python script used as example.
+
+<br>
+
+```{bash run_sif, echo=TRUE, eval=FALSE}
+singularity run                 \
+  -B ${RESULTS}:/results_folder \
+  Image_to_Create.sif           \
+  -o fusviz_sample1.txt
+```
