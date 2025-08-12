@@ -192,6 +192,28 @@
       "Maintainer": "Dirk Eddelbuettel <edd@debian.org>",
       "Repository": "CRAN"
     },
+    "assertthat": {
+      "Package": "assertthat",
+      "Version": "0.2.1",
+      "Source": "Repository",
+      "Title": "Easy Pre and Post Assertions",
+      "Authors@R": "person(\"Hadley\", \"Wickham\", , \"hadley@rstudio.com\", c(\"aut\", \"cre\"))",
+      "Description": "An extension to stopifnot() that makes it easy to declare  the pre and post conditions that you code should satisfy, while also  producing friendly error messages so that your users know what's gone wrong.",
+      "License": "GPL-3",
+      "Imports": [
+        "tools"
+      ],
+      "Suggests": [
+        "testthat",
+        "covr"
+      ],
+      "RoxygenNote": "6.0.1",
+      "Collate": "'assert-that.r' 'on-failure.r' 'assertions-file.r' 'assertions-scalar.R' 'assertions.r' 'base.r' 'base-comparison.r' 'base-is.r' 'base-logical.r' 'base-misc.r' 'utils.r' 'validate-that.R'",
+      "NeedsCompilation": "no",
+      "Author": "Hadley Wickham [aut, cre]",
+      "Maintainer": "Hadley Wickham <hadley@rstudio.com>",
+      "Repository": "CRAN"
+    },
     "base64enc": {
       "Package": "base64enc",
       "Version": "0.1-3",
@@ -905,6 +927,45 @@
       "NeedsCompilation": "yes",
       "Author": "Jeroen Ooms [aut, cre] (<https://orcid.org/0000-0002-4035-0289>), Duncan Temple Lang [ctb], Lloyd Hilaiel [cph] (author of bundled libyajl)",
       "Repository": "CRAN"
+    },
+    "klippy": {
+      "Package": "klippy",
+      "Version": "0.0.0.9500",
+      "Source": "GitHub",
+      "Title": "Copy to Clipboard Buttons for R Markdown HTML Documents",
+      "Authors@R": "c( person(\"Romain\", \"Lesur\", email = \"romain.lesur@gmail.com\", role = c(\"aut\", \"cre\"), comment = c(ORCID = \"0000-0002-0721-5595\")), person(\"Zeno\", \"Rocha\", email = \"hi@zenorocha.com\", role = c(\"cph\"), comment = \"clipboard.js library\"), person(family = \"GitHub, Inc.\", role = \"cph\", comment = \"Primer Tooltips library & Octicons library\") )",
+      "Maintainer": "Romain Lesur <romain.lesur@gmail.com>",
+      "Description": "Insert copy to clipboard buttons in HTML documents generated with 'rmarkdown'. This package is suited for a call in a 'knitr' chunk.  Buttons events are rendered using 'clipboard.js' library and 'Bootstrap.js'  Tooltip plugin.",
+      "Depends": [
+        "R (>= 2.14.1)"
+      ],
+      "Imports": [
+        "assertthat (>= 0.2.0)",
+        "grDevices",
+        "htmltools (>= 0.3.5)",
+        "stringi(>= 0.5-2)"
+      ],
+      "Suggests": [
+        "knitr (>= 1.16)",
+        "prettydoc (>= 0.2.0)",
+        "rmarkdown (>= 0.9.6)"
+      ],
+      "License": "MIT + file LICENSE",
+      "URL": "https://rlesur.github.io/klippy, https://github.com/RLesur/klippy",
+      "BugReports": "https://github.com/RLesur/klippy/issues",
+      "Encoding": "UTF-8",
+      "RoxygenNote": "7.0.2",
+      "VignetteBuilder": "knitr",
+      "Collate": "'html_dependencies.R' 'klippy.R'",
+      "Roxygen": "list(markdown = TRUE)",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "klippy",
+      "RemoteUsername": "rlesur",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "378c247fbbc76ec662f6c1ed1103121b87091be4",
+      "NeedsCompilation": "no",
+      "Author": "Romain Lesur [aut, cre] (ORCID: <https://orcid.org/0000-0002-0721-5595>), Zeno Rocha [cph] (clipboard.js library), GitHub, Inc. [cph] (Primer Tooltips library & Octicons library)"
     },
     "knitr": {
       "Package": "knitr",
@@ -1697,6 +1758,36 @@
       "NeedsCompilation": "no",
       "Author": "Hadley Wickham [aut], Thomas Lin Pedersen [cre, aut] (<https://orcid.org/0000-0002-5147-4711>), Dana Seidel [aut], Posit Software, PBC [cph, fnd] (03wc8by49)",
       "Maintainer": "Thomas Lin Pedersen <thomas.pedersen@posit.co>",
+      "Repository": "CRAN"
+    },
+    "stringi": {
+      "Package": "stringi",
+      "Version": "1.8.7",
+      "Source": "Repository",
+      "Date": "2025-03-27",
+      "Title": "Fast and Portable Character String Processing Facilities",
+      "Description": "A collection of character string/text/natural language processing tools for pattern searching (e.g., with 'Java'-like regular expressions or the 'Unicode' collation algorithm), random string generation, case mapping, string transliteration, concatenation, sorting, padding, wrapping, Unicode normalisation, date-time formatting and parsing, and many more. They are fast, consistent, convenient, and - thanks to 'ICU' (International Components for Unicode) - portable across all locales and platforms. Documentation about 'stringi' is provided via its website at <https://stringi.gagolewski.com/> and the paper by Gagolewski (2022, <doi:10.18637/jss.v103.i02>).",
+      "URL": "https://stringi.gagolewski.com/, https://github.com/gagolews/stringi, https://icu.unicode.org/",
+      "BugReports": "https://github.com/gagolews/stringi/issues",
+      "SystemRequirements": "ICU4C (>= 61, optional)",
+      "Type": "Package",
+      "Depends": [
+        "R (>= 3.4)"
+      ],
+      "Imports": [
+        "tools",
+        "utils",
+        "stats"
+      ],
+      "Biarch": "TRUE",
+      "License": "file LICENSE",
+      "Authors@R": "c(person(given = \"Marek\", family = \"Gagolewski\", role = c(\"aut\", \"cre\", \"cph\"), email = \"marek@gagolewski.com\", comment = c(ORCID = \"0000-0003-0637-6028\")), person(given = \"Bartek\", family = \"Tartanus\", role = \"ctb\"), person(\"Unicode, Inc. and others\", role=\"ctb\", comment = \"ICU4C source code, Unicode Character Database\") )",
+      "RoxygenNote": "7.3.2",
+      "Encoding": "UTF-8",
+      "NeedsCompilation": "yes",
+      "Author": "Marek Gagolewski [aut, cre, cph] (<https://orcid.org/0000-0003-0637-6028>), Bartek Tartanus [ctb], Unicode, Inc. and others [ctb] (ICU4C source code, Unicode Character Database)",
+      "Maintainer": "Marek Gagolewski <marek@gagolewski.com>",
+      "License_is_FOSS": "yes",
       "Repository": "CRAN"
     },
     "tibble": {
