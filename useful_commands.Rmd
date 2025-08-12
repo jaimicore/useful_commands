@@ -17,6 +17,44 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 
 library(reticulate)
+library(klippy)
+
+# remotes::install_github("rlesur/klippy")
+```
+
+```{r functions, include=FALSE}
+# ----------------------- #
+# Show/Hide figure botton #
+# ----------------------- #
+
+insert.fig.toggle <- function(
+  fig.id,        # Unique id for the div/button (e.g. "figVMWare")
+  button.label,  # Label for the button (e.g. "Toggle Figure 1")
+  img.src,       # Path to image (e.g. "fig/01_VMWare_login.png")
+  fig.width = "45%",  # Width style for image
+  fig.cap = "Caption text"  # Figure caption text
+) {
+  safe_fig_id <- gsub("'", "\\'", fig.id)
+  safe_button_label <- gsub("'", "\\'", button.label)
+  safe_img_src <- gsub("'", "\\'", img.src)
+  safe_fig_cap <- gsub("'", "\\'", fig.cap)
+  
+  cat(sprintf('
+<div style="margin-bottom: 10px; text-align: right;">
+  <button class="btn-toggle" onclick="toggleFigure(\'%s\')">%s</button>
+</div>
+<div id="%s" style="display:block; text-align: center; margin-bottom: 20px;">
+  <img src="%s" style="width:%s;" class="img-fluid"/>
+  <p><strong>%s.</strong> %s</p>
+</div>
+', safe_fig_id, safe_button_label, safe_fig_id, safe_img_src, fig.width, safe_button_label, safe_fig_cap))
+}
+```
+
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy(lang     = c('r', 'python', 'bash'),
+               position = c('top', 'right'),
+               color    = '#253494')
 ```
 
 <br>
@@ -284,6 +322,44 @@ Bs = vectorized_count_letter(example_strings,'B', case_sensitive = False)
 
 <br>
 
+# `jupyter`
+
+<br>
+
+## Run a notebook using `papermill`
+
+<br>
+
+We can run the code in the notebook without open it, via the command line using
+[`papermill`](https://papermill.readthedocs.io/en/latest/index.html). This is particularly useful to parametrize the notebooks and run it
+with different variables.
+
+`papermill` can be installed via `pip` : `pip install papermill`
+
+The first cell in the notebook must have the tag `parameters`, these are the
+values that can be passed via the command line `-p argument_name argument_value`.
+
+```{r ipynb_parameters, echo=FALSE, results='asis'}
+insert.fig.toggle(
+  fig.id = "ipynb_parameters",
+  button.label = "Figure 1",
+  img.src = "fig/jupyter_notebook_parameters_tag.png",
+  fig.width = "75%",
+  fig.cap = "Figure 1. Add 'parameters' tag to the first cell in the notebook."
+)
+```
+
+Note that the argument names should match the variables in the cell with the tag `parameters`.
+
+<br>
+
+```{bash run_papermill, echo=TRUE, eval=FALSE}
+papermill your_notebook.ipynb output_notebook.ipynb \
+  -p org_id 9606
+```
+
+<br>
+
 # `R`
 
 <br>
@@ -436,4 +512,38 @@ singularity run                 \
   -B ${RESULTS}:/results_folder \
   Image_to_Create.sif           \
   -o fusviz_sample1.txt
+```
+
+
+```{r toggle, echo=FALSE, results='asis'}
+
+cat('
+<style>
+.btn-toggle {
+  background-color: #0275d8;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 12px;       /* Rounded corners */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+.btn-toggle:hover {
+  background-color: #025aa5;
+}
+</style>
+
+<script>
+function toggleFigure(id) {
+  var fig = document.getElementById(id);
+  if (fig.style.display === "none" || fig.style.display === "") {
+    fig.style.display = "block";
+  } else {
+    fig.style.display = "none";
+  }
+}
+</script>
+')
 ```
