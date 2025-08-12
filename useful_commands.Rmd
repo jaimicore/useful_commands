@@ -1,16 +1,17 @@
 ---
-title: "useful_commands"
+title: "Useful Commands"
 author: "Jaime Abraham Castro-Mondragon"
 date: 'Last update: `r Sys.Date()`'
 output: 
   html_document:
     number_sections: true
     theme: cosmo
-    toc: yes
+    toc: true
     toc_depth: 4
     toc_float:
       collapsed: true
     self_contained: true
+    code_folding: show
 ---
 
 ```{r setup, include=FALSE}
