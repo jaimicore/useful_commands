@@ -42,11 +42,6 @@ jobs:
         run: |
           Rscript -e 'library(rmarkdown); rmarkdown::render("useful_commands.Rmd", "html_document")' || exit 1
 
-      - name: Show LaTeX file
-        run: |
-          cat useful_commands.tex
-
-
       # - name: Knit HTML file
       #   run: |
       #     Rscript -e 'library(rmarkdown); rmarkdown::render("useful_commands.Rmd", "pdf_document", output_options = list(keep_tex = TRUE, latex_engine = "xelatex"))' || exit 1
