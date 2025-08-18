@@ -38,9 +38,9 @@ jobs:
       - name: Debug File Structure
         run: ls -R
 
-      - name: Knit HTML file
+      - name: Knit R commands HTML file
         run: |
-          Rscript -e 'library(rmarkdown); rmarkdown::render("useful_commands.Rmd", "html_document")' || exit 1
+          Rscript -e 'library(rmarkdown); rmarkdown::render("R_useful_commands.Rmd", "html_document")' || exit 1
 
       # - name: Knit HTML file
       #   run: |
