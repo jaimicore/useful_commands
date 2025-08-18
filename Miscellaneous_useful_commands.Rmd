@@ -17,7 +17,6 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 
-library(reticulate)
 library(klippy)
 
 # remotes::install_github("rlesur/klippy")
@@ -64,9 +63,60 @@ klippy::klippy(lang     = c('r', 'python', 'bash'),
 
 <br>
 
-In this document you will find many commands from multiple languages, for instance `R`, `python`, `bash`, `Snakemake`, or others. I use these commands frequently and I think they are useful **but easy to forget**.
+In this document you will find many commands from multiple languages (`bash`, `Snakemake`), or commands for specific tools (such as `aws`, `singularity`, `jupyter`, and `git`). I use these commands frequently and I think they are useful **but easy to forget**.
 
 So, to avoid searching on the `bash history` or in google, it is better to have a repository with all of them, enjoy.
+
+<br>
+
+# Apptainer (Singularity)
+
+<br>
+
+## Create a `.sif` file
+
+<br>
+
+Use this command to create an *image* (`.sif`) file that can be used to call the containerized software.
+In this example we are creating a `.sif` file that calls a python script.
+
+<br>
+
+Requirements:
+  
+  - Singularity definition file: `.def` file.
+  - `.toml` file with the required python modules
+
+<br>
+
+```{bash create_sif, echo=TRUE, eval=FALSE}
+sudo apptainer build         \
+  Image_to_Create.sif        \
+  Singularity_definition.def
+```
+
+<br>
+
+## Run a `.sif` file
+
+<br>
+
+Once the `.sif` file was successfully created, it can be moved to any other folder
+or machine to call the containerized software.
+
+  - The first line in the following chunk, `singularity run` is 
+the command to call any `.sif` file.
+  - `-B` : use this argument to mount a file 
+  - Arguments: `-o` is an argument expected by the containerized python script used as example.
+
+<br>
+
+```{bash run_sif, echo=TRUE, eval=FALSE}
+singularity run                 \
+  -B ${RESULTS}:/results_folder \
+  Image_to_Create.sif           \
+  -o fusviz_sample1.txt
+```
 
 <br>
 
@@ -83,6 +133,26 @@ Run the command and open the browser to confirm
 ```{bash aws_sso_login, echo=TRUE, eval=FALSE}
 aws configure sso
 aws sso login
+```
+
+<br>
+
+# Bash
+
+<br>
+
+## Convert PDF to high resolution images using `convert`
+
+<br>
+
+Use this when you have a PDF file and want to get a picture from it, avoiding to take a screenshot with low resolution.
+
+```{bash convert_pdf2image, echo=TRUE, eval=FALSE}
+
+# Install imagemagick first
+sudo apt-get install imagemagick
+
+convert -density 300 -trim Input_PDF.pdf -quality 100 Output_Picture.jpg
 ```
 
 <br>
@@ -243,86 +313,6 @@ git commit -m 'chore: added dplyr as dependency' your_file.txt
 
 <br>
 
-# `python`
-
-<br>
-
-## module version
-
-<br>
-
-We can use `pip` from the command line .
-
-```{bash pip_show, echo=TRUE, eval=FALSE}
-pip show module_name
-```
-
-<br>
-
-## `poetry` basics
-
-<br>
-
-Add, update or remove modules .
-
-```{bash poetry_basics, echo=TRUE, eval=FALSE}
-
-poetry update module
-
-# Add a module or a specific version or the latest version
-poetry add python
-poetry add python=3.8
-poetry add python@latest
-
-# Remove a module
-poetry remove python
-```
-
-<br>
-
-## Vectorize a function using `numpy`
-
-<br>
-
-Use it to vectorize a function and avoid explicit iterations.
-
-```{python np_vectorize, echo=TRUE, eval=FALSE}
-import numpy as np
-
-# This function counts occurrences of a specific letter in a string
-def count_letter(input_string, letter, case_sensitive=True):
-    """
-    Counts the number of a specific letter in the input string, with an option for case sensitivity.
-    
-    Parameters:
-        input_string (str): The string to analyze.
-        letter (str): The letter to count.
-        case_sensitive (bool): If True, respects case. If False, ignores case.
-        
-    Returns:
-        int: The count of the specified letter in the string.
-    """
-    if not case_sensitive:
-        input_string = input_string.lower()
-        letter = letter.lower()
-    return input_string.count(letter)
-
-# Vectorize the function
-vectorized_count_letter = np.vectorize(count_letter)
-
-# Example usage
-example_strings = np.array(["Abracadabra", "Alpha", "array", "Artistic", "awesome"])
-
-# Call the vectorized function and count the occurrences
-As = vectorized_count_letter(example_strings,'A', case_sensitive = False)
-Bs = vectorized_count_letter(example_strings,'B', case_sensitive = False)
-
-#print(f"Counts of As: {As}")
-#print(f"Counts of Bs: {Bs}")
-```
-
-<br>
-
 # `jupyter`
 
 <br>
@@ -361,190 +351,117 @@ papermill your_notebook.ipynb output_notebook.ipynb \
 
 <br>
 
-# `R`
+<!-- # `python` -->
 
-<br>
+<!-- <br> -->
 
-## Generate a color palette with `N` colors using `rcartocolor`.
+<!-- ## module version -->
 
-<br>
+<!-- <br> -->
 
-See all the available palettes [here](https://carto.com/carto-colors/).
+<!-- We can use `pip` from the command line . -->
 
+<!-- ```{bash pip_show, echo=TRUE, eval=FALSE} -->
+<!-- pip show module_name -->
+<!-- ``` -->
 
-```{r palette, echo=TRUE, eval=TRUE}
+<!-- <br> -->
 
-library(rcartocolor)
+<!-- ## `poetry` basics -->
 
-#' @description 
-#' Create a color palette from rcartocolor with N colors.
-#' Users can specify the number of seeds colors (default = 10)
-#'
-#' @param N An integer
-#' @param rcc.palette A string.
-#' @param seed.colors An integer
-#' @return A vector with N Hex color codes
-#' @examples
-#' generate.color.palette(10)
-generate.color.palette <- function(N           = 10,
-                                   rcc.palette = "SunsetDark",
-                                   seed.colors = 10) {
-  
-  ## Cluster colors
-  nb.seed.colors <- ifelse(N < seed.colors,
-                           yes = N,
-                           no  = seed.colors)
-  
-  ## Generate a carto palette and expand it to the number of clusters
-  carto.pal.classes <- carto_pal(nb.seed.colors, rcc.palette)
-  class.colors      <- colorRampPalette(carto.pal.classes, space = "Lab")(N)
-  
-  return(class.colors)
-}
+<!-- <br> -->
 
-# Examples
-generate.color.palette(5)
-generate.color.palette(10)
-```
+<!-- Add, update or remove modules . -->
 
-<br>
+<!-- ```{bash poetry_basics, echo=TRUE, eval=FALSE} -->
 
-## Generate a `renv.lock` file using `renv`
+<!-- poetry update module -->
 
-<br>
+<!-- # Add a module or a specific version or the latest version -->
+<!-- poetry add python -->
+<!-- poetry add python=3.8 -->
+<!-- poetry add python@latest -->
 
-This file is needed in `github actions` to manages dependencies and cache `R` packages.
+<!-- # Remove a module -->
+<!-- poetry remove python -->
+<!-- ``` -->
 
+<!-- <br> -->
 
-```{r renv_lock, echo=TRUE, eval=FALSE}
+<!-- ## Vectorize a function using `numpy` -->
 
-library(renv)
-library(rcartocolor)
+<!-- <br> -->
 
-# initialize a new project (with an empty R library)
-renv::init(bare = TRUE)
+<!-- Use it to vectorize a function and avoid explicit iterations. -->
 
-# install digest 0.6.19
-renv::install("digest@0.6.19")
+<!-- ```{python np_vectorize, echo=TRUE, eval=FALSE} -->
+<!-- import numpy as np -->
 
-# save library state to lockfile
-renv::snapshot()
+<!-- # This function counts occurrences of a specific letter in a string -->
+<!-- def count_letter(input_string, letter, case_sensitive=True): -->
+<!--     """ -->
+<!--     Counts the number of a specific letter in the input string, with an option for case sensitivity. -->
 
-# remove digest from library
-renv::remove("digest")
+<!--     Parameters: -->
+<!--         input_string (str): The string to analyze. -->
+<!--         letter (str): The letter to count. -->
+<!--         case_sensitive (bool): If True, respects case. If False, ignores case. -->
 
-# check library status
-renv::status()
+<!--     Returns: -->
+<!--         int: The count of the specified letter in the string. -->
+<!--     """ -->
+<!--     if not case_sensitive: -->
+<!--         input_string = input_string.lower() -->
+<!--         letter = letter.lower() -->
+<!--     return input_string.count(letter) -->
 
-# restore lockfile, thereby reinstalling digest 0.6.19
-renv::restore()
+<!-- # Vectorize the function -->
+<!-- vectorized_count_letter = np.vectorize(count_letter) -->
 
+<!-- # Example usage -->
+<!-- example_strings = np.array(["Abracadabra", "Alpha", "array", "Artistic", "awesome"]) -->
 
-#  Control dependencies : https://rstudio.github.io/renv/reference/snapshot.html
-renv::settings$snapshot.type("explicit")
-```
+<!-- # Call the vectorized function and count the occurrences -->
+<!-- As = vectorized_count_letter(example_strings,'A', case_sensitive = False) -->
+<!-- Bs = vectorized_count_letter(example_strings,'B', case_sensitive = False) -->
 
-<br>
+<!-- #print(f"Counts of As: {As}") -->
+<!-- #print(f"Counts of Bs: {Bs}") -->
+<!-- ``` -->
 
-# Bash
-
-<br>
-
-## Convert PDF to high resolution images using `convert`
-
-<br>
-
-Use this when you have a PDF file and want to get a picture from it, avoiding to take a screenshot with low resolution.
-
-```{bash convert_pdf2image, echo=TRUE, eval=FALSE}
-
-# Install imagemagick first
-sudo apt-get install imagemagick
-
-convert -density 300 -trim Input_PDF.pdf -quality 100 Output_Picture.jpg
-```
-
-<br>
-
-# Apptainer (Singularity)
-
-<br>
-
-## Create a `.sif` file
-
-<br>
-
-Use this command to create an *image* (`.sif`) file that can be used to call the containerized software.
-In this example we are creating a `.sif` file that calls a python script.
-
-<br>
-
-Requirements:
-  
-  - Singularity definition file: `.def` file.
-  - `.toml` file with the required python modules
-
-<br>
-
-```{bash create_sif, echo=TRUE, eval=FALSE}
-sudo apptainer build         \
-  Image_to_Create.sif        \
-  Singularity_definition.def
-```
-
-<br>
-
-## Run a `.sif` file
-
-<br>
-
-Once the `.sif` file was successfully created, it can be moved to any other folder
-or machine to call the containerized software.
-
-  - The first line in the following chunk, `singularity run` is 
-the command to call any `.sif` file.
-  - `-B` : use this argument to mount a file 
-  - Arguments: `-o` is an argument expected by the containerized python script used as example.
-
-<br>
-
-```{bash run_sif, echo=TRUE, eval=FALSE}
-singularity run                 \
-  -B ${RESULTS}:/results_folder \
-  Image_to_Create.sif           \
-  -o fusviz_sample1.txt
-```
+<!-- <br> -->
 
 
-```{r toggle, echo=FALSE, results='asis'}
 
-cat('
-<style>
-.btn-toggle {
-  background-color: #0275d8;
-  border: none;
-  color: white;
-  padding: 8px 16px;
-  font-size: 14px;
-  border-radius: 12px;       /* Rounded corners */
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-}
-.btn-toggle:hover {
-  background-color: #025aa5;
-}
-</style>
+<!-- ```{r toggle, echo=FALSE, results='asis'} -->
 
-<script>
-function toggleFigure(id) {
-  var fig = document.getElementById(id);
-  if (fig.style.display === "none" || fig.style.display === "") {
-    fig.style.display = "block";
-  } else {
-    fig.style.display = "none";
-  }
-}
-</script>
-')
-```
+<!-- cat(' -->
+<!-- <style> -->
+<!-- .btn-toggle { -->
+<!--   background-color: #0275d8; -->
+<!--   border: none; -->
+<!--   color: white; -->
+<!--   padding: 8px 16px; -->
+<!--   font-size: 14px; -->
+<!--   border-radius: 12px;       /* Rounded corners */ -->
+<!--   cursor: pointer; -->
+<!--   transition: background-color 0.3s ease; -->
+<!--   box-shadow: 0 2px 4px rgba(0,0,0,0.15); -->
+<!-- } -->
+<!-- .btn-toggle:hover { -->
+<!--   background-color: #025aa5; -->
+<!-- } -->
+<!-- </style> -->
+
+<!-- <script> -->
+<!-- function toggleFigure(id) { -->
+<!--   var fig = document.getElementById(id); -->
+<!--   if (fig.style.display === "none" || fig.style.display === "") { -->
+<!--     fig.style.display = "block"; -->
+<!--   } else { -->
+<!--     fig.style.display = "none"; -->
+<!--   } -->
+<!-- } -->
+<!-- </script> -->
+<!-- ') -->
+<!-- ``` -->
