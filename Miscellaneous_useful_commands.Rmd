@@ -1,5 +1,5 @@
 ---
-title: "Useful Commands"
+title: "Miscellaneous Useful Commands"
 author: "Jaime Abraham Castro-Mondragon"
 date: 'Last update: `r Sys.Date()`'
 output: 
@@ -351,117 +351,36 @@ papermill your_notebook.ipynb output_notebook.ipynb \
 
 <br>
 
-<!-- # `python` -->
 
-<!-- <br> -->
+```{r toggle, echo=FALSE, results='asis'}
 
-<!-- ## module version -->
+cat('
+<style>
+.btn-toggle {
+  background-color: #0275d8;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 12px;       /* Rounded corners */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+.btn-toggle:hover {
+  background-color: #025aa5;
+}
+</style>
 
-<!-- <br> -->
-
-<!-- We can use `pip` from the command line . -->
-
-<!-- ```{bash pip_show, echo=TRUE, eval=FALSE} -->
-<!-- pip show module_name -->
-<!-- ``` -->
-
-<!-- <br> -->
-
-<!-- ## `poetry` basics -->
-
-<!-- <br> -->
-
-<!-- Add, update or remove modules . -->
-
-<!-- ```{bash poetry_basics, echo=TRUE, eval=FALSE} -->
-
-<!-- poetry update module -->
-
-<!-- # Add a module or a specific version or the latest version -->
-<!-- poetry add python -->
-<!-- poetry add python=3.8 -->
-<!-- poetry add python@latest -->
-
-<!-- # Remove a module -->
-<!-- poetry remove python -->
-<!-- ``` -->
-
-<!-- <br> -->
-
-<!-- ## Vectorize a function using `numpy` -->
-
-<!-- <br> -->
-
-<!-- Use it to vectorize a function and avoid explicit iterations. -->
-
-<!-- ```{python np_vectorize, echo=TRUE, eval=FALSE} -->
-<!-- import numpy as np -->
-
-<!-- # This function counts occurrences of a specific letter in a string -->
-<!-- def count_letter(input_string, letter, case_sensitive=True): -->
-<!--     """ -->
-<!--     Counts the number of a specific letter in the input string, with an option for case sensitivity. -->
-
-<!--     Parameters: -->
-<!--         input_string (str): The string to analyze. -->
-<!--         letter (str): The letter to count. -->
-<!--         case_sensitive (bool): If True, respects case. If False, ignores case. -->
-
-<!--     Returns: -->
-<!--         int: The count of the specified letter in the string. -->
-<!--     """ -->
-<!--     if not case_sensitive: -->
-<!--         input_string = input_string.lower() -->
-<!--         letter = letter.lower() -->
-<!--     return input_string.count(letter) -->
-
-<!-- # Vectorize the function -->
-<!-- vectorized_count_letter = np.vectorize(count_letter) -->
-
-<!-- # Example usage -->
-<!-- example_strings = np.array(["Abracadabra", "Alpha", "array", "Artistic", "awesome"]) -->
-
-<!-- # Call the vectorized function and count the occurrences -->
-<!-- As = vectorized_count_letter(example_strings,'A', case_sensitive = False) -->
-<!-- Bs = vectorized_count_letter(example_strings,'B', case_sensitive = False) -->
-
-<!-- #print(f"Counts of As: {As}") -->
-<!-- #print(f"Counts of Bs: {Bs}") -->
-<!-- ``` -->
-
-<!-- <br> -->
-
-
-
-<!-- ```{r toggle, echo=FALSE, results='asis'} -->
-
-<!-- cat(' -->
-<!-- <style> -->
-<!-- .btn-toggle { -->
-<!--   background-color: #0275d8; -->
-<!--   border: none; -->
-<!--   color: white; -->
-<!--   padding: 8px 16px; -->
-<!--   font-size: 14px; -->
-<!--   border-radius: 12px;       /* Rounded corners */ -->
-<!--   cursor: pointer; -->
-<!--   transition: background-color 0.3s ease; -->
-<!--   box-shadow: 0 2px 4px rgba(0,0,0,0.15); -->
-<!-- } -->
-<!-- .btn-toggle:hover { -->
-<!--   background-color: #025aa5; -->
-<!-- } -->
-<!-- </style> -->
-
-<!-- <script> -->
-<!-- function toggleFigure(id) { -->
-<!--   var fig = document.getElementById(id); -->
-<!--   if (fig.style.display === "none" || fig.style.display === "") { -->
-<!--     fig.style.display = "block"; -->
-<!--   } else { -->
-<!--     fig.style.display = "none"; -->
-<!--   } -->
-<!-- } -->
-<!-- </script> -->
-<!-- ') -->
-<!-- ``` -->
+<script>
+function toggleFigure(id) {
+  var fig = document.getElementById(id);
+  if (fig.style.display === "none" || fig.style.display === "") {
+    fig.style.display = "block";
+  } else {
+    fig.style.display = "none";
+  }
+}
+</script>
+')
+```
