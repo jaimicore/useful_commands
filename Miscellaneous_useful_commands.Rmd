@@ -1,0 +1,550 @@
+---
+title: "Useful Commands"
+author: "Jaime Abraham Castro-Mondragon"
+date: 'Last update: `r Sys.Date()`'
+output: 
+  html_document:
+    number_sections: true
+    theme: cosmo
+    toc: true
+    toc_depth: 4
+    toc_float:
+      collapsed: true
+    self_contained: true
+    code_folding: show
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(reticulate)
+library(klippy)
+
+# remotes::install_github("rlesur/klippy")
+```
+
+```{r functions, include=FALSE}
+# ----------------------- #
+# Show/Hide figure botton #
+# ----------------------- #
+
+insert.fig.toggle <- function(
+  fig.id,        # Unique id for the div/button (e.g. "figVMWare")
+  button.label,  # Label for the button (e.g. "Toggle Figure 1")
+  img.src,       # Path to image (e.g. "fig/01_VMWare_login.png")
+  fig.width = "45%",  # Width style for image
+  fig.cap = "Caption text"  # Figure caption text
+) {
+  safe_fig_id <- gsub("'", "\\'", fig.id)
+  safe_button_label <- gsub("'", "\\'", button.label)
+  safe_img_src <- gsub("'", "\\'", img.src)
+  safe_fig_cap <- gsub("'", "\\'", fig.cap)
+  
+  cat(sprintf('
+<div style="margin-bottom: 10px; text-align: right;">
+  <button class="btn-toggle" onclick="toggleFigure(\'%s\')">%s</button>
+</div>
+<div id="%s" style="display:block; text-align: center; margin-bottom: 20px;">
+  <img src="%s" style="width:%s;" class="img-fluid"/>
+  <p><strong>%s.</strong> %s</p>
+</div>
+', safe_fig_id, safe_button_label, safe_fig_id, safe_img_src, fig.width, safe_button_label, safe_fig_cap))
+}
+```
+
+```{r klippy, echo=FALSE, include=TRUE}
+klippy::klippy(lang     = c('r', 'python', 'bash'),
+               position = c('top', 'right'),
+               color    = '#253494')
+```
+
+<br>
+
+# Introduction
+
+<br>
+
+In this document you will find many commands from multiple languages, for instance `R`, `python`, `bash`, `Snakemake`, or others. I use these commands frequently and I think they are useful **but easy to forget**.
+
+So, to avoid searching on the `bash history` or in google, it is better to have a repository with all of them, enjoy.
+
+<br>
+
+# `aws`
+
+<br>
+
+## `log in`
+
+<br>
+
+Run the command and open the browser to confirm
+
+```{bash aws_sso_login, echo=TRUE, eval=FALSE}
+aws configure sso
+aws sso login
+```
+
+<br>
+
+# `git`
+
+<br>
+
+## Create a new branch from a previous `commit`
+
+<br>
+
+Use `git log` to get the commit hash, `git branch` to create a new branch, and `git switch` to modify the new branch.
+
+Don't forget to double check the branch you are working with using `git status` 
+
+```{bash git_branch_from_commit, echo=TRUE, eval=FALSE}
+git log
+git branch new_branch_name commit_hash
+git switch new_branch_name
+```
+
+<br>
+
+## Merge a `branch` into `main`
+
+<br>
+
+Don't forget to double check the branch you are working with using `git status`  and list the branches with `git branch`
+
+```{bash merge_branch_to_main, echo=TRUE, eval=FALSE}
+
+# Go to the branch
+git checkout branch_to_merge
+
+# FETCH_HEAD
+git pull origin main
+
+# go to main branch and merge
+git checkout main
+git merge branch_to_merge
+
+# If needed add the files with differences
+git add [resolved_files]
+
+# No -m 
+git commit
+
+# Push merged branch to main
+git push origin main
+```
+
+<br>
+
+## `git tag`
+
+<br>
+
+First `git commit` your changes before adding a new `tag` .
+
+```{bash git_tag, echo=TRUE, eval=FALSE}
+git commit -m 'Your message' folder/your_updated_file.txt
+git push
+git tag v1.2.4
+git push --tags
+```
+
+<br>
+
+## Set credentials in `git`
+
+<br>
+
+Do this to stop `git` asking your user name each time you `push` changes in a repository.
+
+```{bash git_set_credentials, echo=TRUE, eval=FALSE}
+
+# Set your user name
+git config --global credential.https://github.com.username user_name
+
+# Then save your credentials
+git config --global credential.helper store
+```
+
+<br>
+
+## Examples of `git commit`
+
+<br>
+
+These examples follow the [git commit style guidelines](https://gist.github.com/ericavonb/3c79e5035567c8ef3267)
+
+Summary:
+
+  - Must be present tense
+  - Written in the imperative
+  - First letter is not capitalized
+  - Does not end with a '.'
+
+
+Allowed Types:
+
+  - feat -> feature
+  - fix -> bug fix
+  - docs -> documentation
+  - style -> formatting, lint stuff
+  - refactor -> code restructure without changing exterrnal behavior
+  - test -> adding missing tests
+  - chore -> maintenance
+  - init -> initial commit
+  - rearrange -> files moved, added, deleted etc
+  - update -> update code (versions, library compatibility)
+
+
+```{bash git_commit_examples, echo=TRUE, eval=FALSE}
+
+# First commit (init)
+git commit -m 'init: First commit' your_file.txt
+
+# Bug fix (fix)
+git commit -m 'fix: Fixed bug when reading data in function()' your_file.txt
+
+# Documentation (docs)
+git commit -m 'docs: Added documentation for function()' your_file.txt
+git commit -m 'docs: Added comments regarding function()' your_file.txt
+
+# Features (feat)
+git commit -m 'feat: Added new method to do ... in function()' your_file.txt
+
+# Style (style)
+git commit -m 'style: corrected typo in a comment' your_file.txt
+git commit -m 'style: changed colors in heatmap' your_file.txt
+git commit -m 'style: linten code/function' your_file.txt
+git commit -m 'style: updated style in section ...' your_file.txt
+
+# Refactor (refactor)
+git commit -m 'refactor: function() refactored to be faster/memory efficient' your_file.txt
+
+# Test (test)
+git commit -m 'test: Added unit test for function()' your_file.txt
+
+# Rearrange (rearrange) : all related to file manipulation
+git commit -m 'rearrange: added .gitignore' 
+git commit -m 'rearrange: moved to subfolder_x' your_file.txt
+git commit -m 'rearrange: removed file' your_file.txt
+git commit -m 'rearrange: changed chmod' your_file.txt
+
+# Update (update)
+git commit -m 'update: new version' your_file.txt
+git commit -m 'update: updated function() to use dplyr 3.0' your_file.txt
+
+# Maintenance (chore)
+git commit -m 'chore: updated config file' your_file.txt
+git commit -m 'chore: removed non required dependencies' your_file.txt
+git commit -m 'chore: added dplyr as dependency' your_file.txt
+
+```
+
+<br>
+
+# `python`
+
+<br>
+
+## module version
+
+<br>
+
+We can use `pip` from the command line .
+
+```{bash pip_show, echo=TRUE, eval=FALSE}
+pip show module_name
+```
+
+<br>
+
+## `poetry` basics
+
+<br>
+
+Add, update or remove modules .
+
+```{bash poetry_basics, echo=TRUE, eval=FALSE}
+
+poetry update module
+
+# Add a module or a specific version or the latest version
+poetry add python
+poetry add python=3.8
+poetry add python@latest
+
+# Remove a module
+poetry remove python
+```
+
+<br>
+
+## Vectorize a function using `numpy`
+
+<br>
+
+Use it to vectorize a function and avoid explicit iterations.
+
+```{python np_vectorize, echo=TRUE, eval=FALSE}
+import numpy as np
+
+# This function counts occurrences of a specific letter in a string
+def count_letter(input_string, letter, case_sensitive=True):
+    """
+    Counts the number of a specific letter in the input string, with an option for case sensitivity.
+    
+    Parameters:
+        input_string (str): The string to analyze.
+        letter (str): The letter to count.
+        case_sensitive (bool): If True, respects case. If False, ignores case.
+        
+    Returns:
+        int: The count of the specified letter in the string.
+    """
+    if not case_sensitive:
+        input_string = input_string.lower()
+        letter = letter.lower()
+    return input_string.count(letter)
+
+# Vectorize the function
+vectorized_count_letter = np.vectorize(count_letter)
+
+# Example usage
+example_strings = np.array(["Abracadabra", "Alpha", "array", "Artistic", "awesome"])
+
+# Call the vectorized function and count the occurrences
+As = vectorized_count_letter(example_strings,'A', case_sensitive = False)
+Bs = vectorized_count_letter(example_strings,'B', case_sensitive = False)
+
+#print(f"Counts of As: {As}")
+#print(f"Counts of Bs: {Bs}")
+```
+
+<br>
+
+# `jupyter`
+
+<br>
+
+## Run a notebook using `papermill`
+
+<br>
+
+We can run the code in the notebook without open it, via the command line using
+[`papermill`](https://papermill.readthedocs.io/en/latest/index.html). This is particularly useful to parametrize the notebooks and run it
+with different variables.
+
+`papermill` can be installed via `pip` : `pip install papermill`
+
+The first cell in the notebook must have the tag `parameters`, these are the
+values that can be passed via the command line `-p argument_name argument_value`.
+
+```{r ipynb_parameters, echo=FALSE, results='asis'}
+insert.fig.toggle(
+  fig.id = "ipynb_parameters",
+  button.label = "Figure 1",
+  img.src = "fig/jupyter_notebook_parameters_tag.png",
+  fig.width = "75%",
+  fig.cap = "Figure 1. Add 'parameters' tag to the first cell in the notebook."
+)
+```
+
+Note that the argument names should match the variables in the cell with the tag `parameters`.
+
+<br>
+
+```{bash run_papermill, echo=TRUE, eval=FALSE}
+papermill your_notebook.ipynb output_notebook.ipynb \
+  -p org_id 9606
+```
+
+<br>
+
+# `R`
+
+<br>
+
+## Generate a color palette with `N` colors using `rcartocolor`.
+
+<br>
+
+See all the available palettes [here](https://carto.com/carto-colors/).
+
+
+```{r palette, echo=TRUE, eval=TRUE}
+
+library(rcartocolor)
+
+#' @description 
+#' Create a color palette from rcartocolor with N colors.
+#' Users can specify the number of seeds colors (default = 10)
+#'
+#' @param N An integer
+#' @param rcc.palette A string.
+#' @param seed.colors An integer
+#' @return A vector with N Hex color codes
+#' @examples
+#' generate.color.palette(10)
+generate.color.palette <- function(N           = 10,
+                                   rcc.palette = "SunsetDark",
+                                   seed.colors = 10) {
+  
+  ## Cluster colors
+  nb.seed.colors <- ifelse(N < seed.colors,
+                           yes = N,
+                           no  = seed.colors)
+  
+  ## Generate a carto palette and expand it to the number of clusters
+  carto.pal.classes <- carto_pal(nb.seed.colors, rcc.palette)
+  class.colors      <- colorRampPalette(carto.pal.classes, space = "Lab")(N)
+  
+  return(class.colors)
+}
+
+# Examples
+generate.color.palette(5)
+generate.color.palette(10)
+```
+
+<br>
+
+## Generate a `renv.lock` file using `renv`
+
+<br>
+
+This file is needed in `github actions` to manages dependencies and cache `R` packages.
+
+
+```{r renv_lock, echo=TRUE, eval=FALSE}
+
+library(renv)
+library(rcartocolor)
+
+# initialize a new project (with an empty R library)
+renv::init(bare = TRUE)
+
+# install digest 0.6.19
+renv::install("digest@0.6.19")
+
+# save library state to lockfile
+renv::snapshot()
+
+# remove digest from library
+renv::remove("digest")
+
+# check library status
+renv::status()
+
+# restore lockfile, thereby reinstalling digest 0.6.19
+renv::restore()
+
+
+#  Control dependencies : https://rstudio.github.io/renv/reference/snapshot.html
+renv::settings$snapshot.type("explicit")
+```
+
+<br>
+
+# Bash
+
+<br>
+
+## Convert PDF to high resolution images using `convert`
+
+<br>
+
+Use this when you have a PDF file and want to get a picture from it, avoiding to take a screenshot with low resolution.
+
+```{bash convert_pdf2image, echo=TRUE, eval=FALSE}
+
+# Install imagemagick first
+sudo apt-get install imagemagick
+
+convert -density 300 -trim Input_PDF.pdf -quality 100 Output_Picture.jpg
+```
+
+<br>
+
+# Apptainer (Singularity)
+
+<br>
+
+## Create a `.sif` file
+
+<br>
+
+Use this command to create an *image* (`.sif`) file that can be used to call the containerized software.
+In this example we are creating a `.sif` file that calls a python script.
+
+<br>
+
+Requirements:
+  
+  - Singularity definition file: `.def` file.
+  - `.toml` file with the required python modules
+
+<br>
+
+```{bash create_sif, echo=TRUE, eval=FALSE}
+sudo apptainer build         \
+  Image_to_Create.sif        \
+  Singularity_definition.def
+```
+
+<br>
+
+## Run a `.sif` file
+
+<br>
+
+Once the `.sif` file was successfully created, it can be moved to any other folder
+or machine to call the containerized software.
+
+  - The first line in the following chunk, `singularity run` is 
+the command to call any `.sif` file.
+  - `-B` : use this argument to mount a file 
+  - Arguments: `-o` is an argument expected by the containerized python script used as example.
+
+<br>
+
+```{bash run_sif, echo=TRUE, eval=FALSE}
+singularity run                 \
+  -B ${RESULTS}:/results_folder \
+  Image_to_Create.sif           \
+  -o fusviz_sample1.txt
+```
+
+
+```{r toggle, echo=FALSE, results='asis'}
+
+cat('
+<style>
+.btn-toggle {
+  background-color: #0275d8;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 12px;       /* Rounded corners */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+.btn-toggle:hover {
+  background-color: #025aa5;
+}
+</style>
+
+<script>
+function toggleFigure(id) {
+  var fig = document.getElementById(id);
+  if (fig.style.display === "none" || fig.style.display === "") {
+    fig.style.display = "block";
+  } else {
+    fig.style.display = "none";
+  }
+}
+</script>
+')
+```
