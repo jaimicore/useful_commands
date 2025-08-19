@@ -1,0 +1,7 @@
+numpy
+datetime
+ipython
+notebook
+joblib
+pytictoc
+
