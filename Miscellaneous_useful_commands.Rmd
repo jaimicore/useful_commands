@@ -157,6 +157,26 @@ convert -density 300 -trim Input_PDF.pdf -quality 100 Output_Picture.jpg
 
 <br>
 
+## `chmod` examples
+
+<br>
+
+Some useful and explained  `chmod` configurations.
+
+In a nutshell:
+
+  - `r` : 4 (read)
+  - `w` : 2 (write)
+  - `x` : 1 (execute)
+
+```{bash chmod_examples, echo=TRUE, eval=FALSE}
+# chmod 664 : user (r,w), group (r,w,), external (r)
+# This is useful to share files among your team members
+chmod 644 your_file
+```
+
+<br>
+
 # `git`
 
 <br>
