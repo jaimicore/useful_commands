@@ -1,0 +1,45 @@
+name: Build Apptainer SIF
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+
+  build-test-container:
+  
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
+    container:
+        image: ghcr.io/apptainer/apptainer:1.4.1
+        options: --privileged
+
+    name: Build Container
+    steps:
+
+      - name: Check out code for the container builds
+        uses: actions/checkout@v4
+
+      # -------------------- #
+      # get_sampleID_genevar #
+      # -------------------- #
+
+      - name: Build and Run Apptainer image get_sampleID_genevar
+        run: |
+          cd where_your_sif_file_is                 ;
+          apptainer build your_SIF.sif your_DEF.def ;
+          echo " "                                  ;
+          apptainer run                             \
+          -B your_data:/data                        \
+          your_SIF.sif                              \
+          -p pass_parameters                        \
+          -o results_folder/get_sampleID_genevar    ;
+      
